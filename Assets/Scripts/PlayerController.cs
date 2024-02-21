@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector2 direction = new Vector2(0, inputActions.Standard.Movement.ReadValue<float>()).normalized;
+        Vector2 direction = new Vector2(inputActions.Standard.Movement.ReadValue<float>(),0).normalized;
         rb.AddForce(direction * speed);
     }
 
