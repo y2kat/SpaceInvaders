@@ -8,6 +8,7 @@ public class EnemyController : MonoBehaviour
     public float horizontalDistance = 1f; // Distancia horizontal que recorre antes de cambiar de dirección
     public float verticalDistance = 1f; // Distancia vertical que desciende cuando cambia de dirección
     public bool moveRight = true; // Dirección inicial del movimiento
+    public float health = 100f;
 
     private float leftEdge; // Coordenada x del borde izquierdo de la pantalla
     private float rightEdge; // Coordenada x del borde derecho de la pantalla
