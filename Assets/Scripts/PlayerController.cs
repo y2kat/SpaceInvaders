@@ -12,7 +12,9 @@ public class PlayerController : MonoBehaviour
 
     private PoolScript bulletPool;
     private Rigidbody2D rb;
-    public int maxHealth = 3;
+
+    public int maxHealth = 100;
+    public int lives = 3;
     private int currentHealth;
 
     private void Awake()
@@ -59,8 +61,8 @@ public class PlayerController : MonoBehaviour
 
     private void LoseLife()
     {
-        maxHealth--;
-        if (maxHealth <= 0)
+        lives--;
+        if (lives <= 0)
         {
             GameOver();
         }
