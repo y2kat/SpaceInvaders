@@ -18,6 +18,7 @@ public class EnemyController : MonoBehaviour
     private GameObject player;
 
     private static int shootCounter = 0;
+    public int points = 20;
 
     public int columns;
 
@@ -54,6 +55,11 @@ public class EnemyController : MonoBehaviour
         health -= damage;
         if (health <= 0)
         {
+            PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.AddScore(points);
+            }
             Destroy(gameObject);
         }
     }

@@ -31,6 +31,19 @@ public class WaveGenerator : MonoBehaviour
                 // Instanciar el enemigo
                 GameObject enemyInstance = Instantiate(enemyPrefab, position, Quaternion.identity, transform);
                 enemyInstance.GetComponent<EnemyController>().columns = columns;
+
+                if (i == 0)
+                {
+                    enemyInstance.GetComponent<EnemyController>().points = 50;
+                }
+                else if (i == 1)
+                {
+                    enemyInstance.GetComponent<EnemyController>().points = 30;
+                }
+                else
+                {
+                    enemyInstance.GetComponent<EnemyController>().points = 20;
+                }
             }
         }
     }

@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public int lives = 3;
     private int currentHealth;
 
+    public int score = 0;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -75,5 +77,11 @@ public class PlayerController : MonoBehaviour
     private void GameOver()
     {
         Debug.Log("Game Over");
+    }
+
+    public void AddScore(int points)
+    {
+        score += points;
+        Debug.Log("Score: " + score);
     }
 }
