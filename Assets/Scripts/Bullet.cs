@@ -28,17 +28,14 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Collision detected with: " + collision.gameObject.name); // Mensaje de depuración para verificar qué objeto colisionó con la bala
-
         if (collision.gameObject.CompareTag("Enemy"))
         {
             EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
-                Debug.Log("Enemy damaged by: " + damage); // Mensaje de depuración para verificar que el enemigo recibió daño
             }
             else
             {
@@ -46,7 +43,6 @@ public class Bullet : MonoBehaviour
             }
 
             transform.parent.GetComponent<PoolScript>().DespawnObject(gameObject);
-            Debug.Log("Bullet despawned."); // Mensaje de depuración para verificar que la bala fue despawned
         }
     }
 }
