@@ -27,11 +27,6 @@ public class PlayerController : MonoBehaviour
         inputActions.Standard.Shoot.performed += Shoot;
     }
 
-    void Update()
-    {
-
-    }
-
     private void FixedUpdate()
     {
         Move();
