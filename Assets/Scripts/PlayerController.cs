@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     private PoolScript bulletPool;
     private Rigidbody2D rb;
+    public float health = 100f;
 
     private void Awake()
     {
@@ -43,5 +44,14 @@ public class PlayerController : MonoBehaviour
         GameObject bullet = bulletPool.RequestObject();
         bullet.SetActive(true);
         bullet.transform.position = transform.position;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Debug.Log("Te moriste we");
+        }
     }
 }
