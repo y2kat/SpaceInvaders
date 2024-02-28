@@ -12,7 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private PoolScript bulletPool;
     private Rigidbody2D rb;
-    public float health = 100f;
+    public int maxHealth = 3;
+    private int currentHealth;
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         inputActions.Standard.Shoot.performed += Shoot;
+        currentHealth = maxHealth;
     }
 
     private void FixedUpdate()
@@ -48,10 +50,28 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
-        if (health <= 0)
+        currentHealth -= damage;
+        if (currentHealth <= 0)
         {
-            Debug.Log("Te moriste we");
+            LoseLife();
         }
+    }
+
+    private void LoseLife()
+    {
+        maxHealth--;
+        if (maxHealth <= 0)
+        {
+            GameOver();
+        }
+        else
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    private void GameOver()
+    {
+        Debug.Log("Game Over");
     }
 }

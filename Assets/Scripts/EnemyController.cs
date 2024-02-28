@@ -12,7 +12,14 @@ public class EnemyController : MonoBehaviour
 
     private float leftEdge; 
     private float rightEdge;
-    private Vector3 startPosition; 
+    private Vector3 startPosition;
+
+    private PoolScript bulletPool;
+    private GameObject player;
+
+    private static int shootCounter = 0;
+
+    public int columns;
 
     void Start()
     {
@@ -21,6 +28,9 @@ public class EnemyController : MonoBehaviour
         rightEdge = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
 
         startPosition = transform.position;
+
+        bulletPool = GameObject.Find("EnemyBulletPool").GetComponent<PoolScript>();
+        player = GameObject.FindWithTag("Player");
     }
 
     void FixedUpdate()
@@ -35,6 +45,8 @@ public class EnemyController : MonoBehaviour
             moveRight = !moveRight; // Cambia de dirección
             transform.Translate(Vector3.down * verticalDistance); // Desciende
         }
+
+        Shoot();
     }
 
     public void TakeDamage(int damage)
@@ -43,6 +55,23 @@ public class EnemyController : MonoBehaviour
         if (health <= 0)
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Shoot()
+    {
+        if (Mathf.Abs(transform.position.x - player.transform.position.x) < 0.5f)
+        {
+            // Solo dispara si este enemigo es el "elegido" para disparar y se cumple la condición aleatoria
+            if (shootCounter % columns == 0 && Random.value < 0.07f) // Asume que 'columns' es el número de enemigos en una fila
+            {
+                GameObject bullet = bulletPool.RequestObject();
+                bullet.GetComponent<Bullet>().isEnemyBullet = true;
+                bullet.SetActive(true);
+                bullet.transform.position = transform.position;
+            }
+
+            shootCounter++;
         }
     }
 }

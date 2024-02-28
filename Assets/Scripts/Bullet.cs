@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float timeToDespawn;
 
     private float despawnTimer;
+    public bool isEnemyBullet;
 
     void Start()
     {
@@ -18,7 +19,8 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.up * speed * Time.deltaTime);
+        Vector2 direction = isEnemyBullet ? Vector2.down : Vector2.up;
+        transform.Translate(direction * speed * Time.deltaTime);
 
         despawnTimer += Time.deltaTime;
         if (despawnTimer >= timeToDespawn) 
@@ -30,7 +32,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (collision.gameObject.CompareTag("Enemy") && !isEnemyBullet)
         {
             EnemyController enemy = collision.gameObject.GetComponent<EnemyController>();
             if (enemy != null)
@@ -40,7 +42,7 @@ public class Bullet : MonoBehaviour
             transform.parent.GetComponent<PoolScript>().DespawnObject(gameObject);
         }
 
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && isEnemyBullet)
         {
             PlayerController player = collision.gameObject.GetComponent<PlayerController>();
             if (player != null)

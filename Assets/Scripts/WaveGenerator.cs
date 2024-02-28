@@ -29,7 +29,8 @@ public class WaveGenerator : MonoBehaviour
                 Vector3 position = new Vector3(j * horizontalSpacing, -i * verticalSpacing, 0) + waveStartTransform.position;
 
                 // Instanciar el enemigo
-                Instantiate(enemyPrefab, position, Quaternion.identity, transform);
+                GameObject enemyInstance = Instantiate(enemyPrefab, position, Quaternion.identity, transform);
+                enemyInstance.GetComponent<EnemyController>().columns = columns;
             }
         }
     }
