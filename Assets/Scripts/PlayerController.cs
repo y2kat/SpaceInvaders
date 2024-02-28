@@ -83,5 +83,10 @@ public class PlayerController : MonoBehaviour
     {
         score += points;
         Debug.Log("Score: " + score);
+
+        if (score > PlayerPrefs.GetInt("Highscore", 0))
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+        }
     }
 }
