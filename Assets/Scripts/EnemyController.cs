@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 2f; // Velocidad de movimiento del enemigo
-    public float horizontalDistance = 1f; // Distancia horizontal que recorre antes de cambiar de dirección
-    public float verticalDistance = 1f; // Distancia vertical que desciende cuando cambia de dirección
-    public bool moveRight = true; // Dirección inicial del movimiento
+    public float speed = 2f; 
+    public float horizontalDistance = 1f; 
+    public float verticalDistance = 1f;
+    public bool moveRight = true; 
     public float health = 100f;
 
-    private float leftEdge; // Coordenada x del borde izquierdo de la pantalla
-    private float rightEdge; // Coordenada x del borde derecho de la pantalla
-    private Vector3 startPosition; // Posición inicial del enemigo
+    private float leftEdge; 
+    private float rightEdge;
+    private Vector3 startPosition; 
 
     void Start()
     {
@@ -20,20 +20,29 @@ public class EnemyController : MonoBehaviour
         leftEdge = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
         rightEdge = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
 
-        startPosition = transform.position; // Guardar la posición inicial
+        startPosition = transform.position;
     }
 
     void FixedUpdate()
     {
         // Movimiento horizontal
-        float horizontalMovement = moveRight ? speed : -speed; // Determinar dirección del movimiento
+        float horizontalMovement = moveRight ? speed : -speed; 
         transform.Translate(Vector3.right * horizontalMovement * Time.fixedDeltaTime); // Mover horizontalmente
 
-        // Si el enemigo alcanza el borde izquierdo o derecho de la pantalla, cambiar de dirección y descender
+        // Si el enemigo alcanza el borde izquierdo o derecho de la pantalla, cambia de dirección y desciende
         if (transform.position.x <= leftEdge || transform.position.x >= rightEdge)
         {
-            moveRight = !moveRight; // Cambiar de dirección
-            transform.Translate(Vector3.down * verticalDistance); // Descender
+            moveRight = !moveRight; // Cambia de dirección
+            transform.Translate(Vector3.down * verticalDistance); // Desciende
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
+        if (health <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
