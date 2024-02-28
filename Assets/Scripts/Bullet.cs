@@ -37,11 +37,6 @@ public class Bullet : MonoBehaviour
             {
                 enemy.TakeDamage(damage);
             }
-            else
-            {
-                Debug.LogWarning("Enemy controller not found!"); // Mensaje de advertencia si no se encuentra el controlador del enemigo
-            }
-
             transform.parent.GetComponent<PoolScript>().DespawnObject(gameObject);
         }
     }
