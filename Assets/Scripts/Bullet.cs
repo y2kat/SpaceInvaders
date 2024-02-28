@@ -39,5 +39,15 @@ public class Bullet : MonoBehaviour
             }
             transform.parent.GetComponent<PoolScript>().DespawnObject(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.TakeDamage(damage);
+            }
+            transform.parent.GetComponent<PoolScript>().DespawnObject(gameObject);
+        }
     }
 }
