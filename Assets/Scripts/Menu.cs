@@ -1,21 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Menu : MonoBehaviour
 {
     [SerializeField] private GameObject level;
     [SerializeField] private GameObject menu;
-    // Start is called before the first frame update
+    [SerializeField] private GameObject deathPanel;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI highScoreText;
+
     void Start()
     {
         Time.timeScale = 0;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void startGame()
@@ -23,5 +21,30 @@ public class Menu : MonoBehaviour
         Time.timeScale = 1.0f;
         level.SetActive(true);
         menu.SetActive(false);
+    }
+
+    public void quitGame()
+    {
+        Debug.Log("Saliste");
+        Application.Quit();
+    }
+
+    public void returnToMenu()
+    {
+        Time.timeScale = 1.0f; 
+        level.SetActive(false);
+        menu.SetActive(true);
+        deathPanel.SetActive(false);
+    }
+
+    public void showDeathScreen()
+    {
+        int score = PlayerPrefs.GetInt("Score", 0);
+        int highScore = PlayerPrefs.GetInt("Highscore", 0);
+
+        scoreText.text = "Score: " + score;
+        highScoreText.text = "Highscore: " + highScore;
+
+        deathPanel.SetActive(true);
     }
 }

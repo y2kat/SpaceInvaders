@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour
 
     public int score = 0;
 
+    public PanelManager panelManager;
+
+    public Menu menu;
+
     private void Awake()
     {
         inputActions = new PlayerInputActions();
@@ -41,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        Vector2 direction = new Vector2(inputActions.Standard.Movement.ReadValue<float>(),0).normalized;
+        Vector2 direction = new Vector2(inputActions.Standard.Movement.ReadValue<float>(), 0).normalized;
         rb.AddForce(direction * speed);
 
         float screenLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
@@ -74,6 +78,7 @@ public class PlayerController : MonoBehaviour
         if (lives <= 0)
         {
             GameOver();
+            panelManager.EnablePanel(3);
         }
         else
         {
@@ -84,6 +89,15 @@ public class PlayerController : MonoBehaviour
     public void GameOver()
     {
         Debug.Log("Game Over");
+        Time.timeScale = 0;
+
+        int highScore = PlayerPrefs.GetInt("Highscore", 0);
+        if (score > highScore)
+        {
+            PlayerPrefs.SetInt("Highscore", score);
+        }
+
+        menu.showDeathScreen();
     }
 
     public void AddScore(int points)
@@ -91,9 +105,11 @@ public class PlayerController : MonoBehaviour
         score += points;
         Debug.Log("Score: " + score);
 
-        if (score > PlayerPrefs.GetInt("Highscore", 0))
+        int highScore = PlayerPrefs.GetInt("Highscore", 0);
+        if (score > highScore)
         {
             PlayerPrefs.SetInt("Highscore", score);
         }
     }
 }
+

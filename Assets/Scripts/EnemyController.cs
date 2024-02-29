@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour
     public int columns;
     public float waveMultiplier;
 
+    public PanelManager panelManager;
+
 
     void Start()
     {
@@ -35,6 +37,8 @@ public class EnemyController : MonoBehaviour
 
         bulletPool = GameObject.Find("EnemyBulletPool").GetComponent<PoolScript>();
         player = GameObject.FindWithTag("Player");
+
+        panelManager = FindObjectOfType<PanelManager>();
     }
 
     void FixedUpdate()
@@ -92,6 +96,7 @@ public class EnemyController : MonoBehaviour
             if (player != null)
             {
                 player.GameOver();
+                panelManager.EnablePanel(3);
             }
         }
     }

@@ -12,7 +12,8 @@ public class WaveGenerator : MonoBehaviour
     public Transform waveStartTransform; // Transform para la posición inicial de la oleada
 
     private float waveMultiplier = 1f;
-    private float bottomEdge = -4;
+
+    public PanelManager panelManager;
 
     void Start()
     {
@@ -21,20 +22,6 @@ public class WaveGenerator : MonoBehaviour
 
     void Update()
     {
-        foreach (Transform enemyTransform in transform)
-        {
-            if (enemyTransform.position.y < bottomEdge)
-            {
-                Debug.Log("Game Over! Enemy Y position: " + enemyTransform.position.y + ", Bottom edge: " + bottomEdge);
-                PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-                if (player != null)
-                {
-                    player.GameOver();
-                }
-                break;
-            }
-        }
-
         if (transform.childCount == 0)
         {
             waveMultiplier += 0.1f;
