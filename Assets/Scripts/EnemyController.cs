@@ -35,6 +35,18 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
+    void Update()
+    {
+        if (transform.position.y < -4.7f) 
+        {
+            PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.GameOver();
+            }
+        }
+    }
+
     void FixedUpdate()
     {
         // Movimiento horizontal
@@ -79,6 +91,18 @@ public class EnemyController : MonoBehaviour
             }
 
             shootCounter++;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.GameOver();
+            }
         }
     }
 }

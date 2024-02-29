@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         Debug.Log("Game Over");
     }
