@@ -51,5 +51,15 @@ public class Bullet : MonoBehaviour
             }
             transform.parent.GetComponent<PoolScript>().DespawnObject(gameObject);
         }
+
+        if (collision.gameObject.CompareTag("Shield") && isEnemyBullet)
+        {
+            Shield shield = collision.gameObject.GetComponent<Shield>();
+            if (shield != null)
+            {
+                shield.TakeDamage(damage);
+            }
+            transform.parent.GetComponent<PoolScript>().DespawnObject(gameObject);
+        }
     }
 }
