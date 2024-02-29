@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 2f;
+    public float speed = 20f;
     public float horizontalDistance = 1f;
     public float verticalDistance = 1f;
     public bool moveRight = true;
@@ -81,6 +81,18 @@ public class EnemyController : MonoBehaviour
             }
 
             shootCounter++;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
+            if (player != null)
+            {
+                player.GameOver();
+            }
         }
     }
 }
