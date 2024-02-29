@@ -43,6 +43,13 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 direction = new Vector2(inputActions.Standard.Movement.ReadValue<float>(),0).normalized;
         rb.AddForce(direction * speed);
+
+        float screenLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0)).x;
+        float screenRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0)).x;
+
+        float clampedX = Mathf.Clamp(rb.position.x, screenLeft, screenRight);
+
+        rb.position = new Vector2(clampedX, rb.position.y);
     }
 
     private void Shoot(InputAction.CallbackContext context)
