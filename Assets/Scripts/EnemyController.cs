@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour
 {
-    public float speed = 2f; 
-    public float horizontalDistance = 1f; 
+    public float speed = 2f;
+    public float horizontalDistance = 1f;
     public float verticalDistance = 1f;
-    public bool moveRight = true; 
+    public bool moveRight = true;
     public float health = 100f;
 
-    private float leftEdge; 
+    private float leftEdge;
     private float rightEdge;
+    private float bottomEdge;
     private Vector3 startPosition;
 
     private PoolScript bulletPool;
@@ -22,6 +23,7 @@ public class EnemyController : MonoBehaviour
 
     public int columns;
     public float waveMultiplier;
+
 
     void Start()
     {
@@ -35,22 +37,10 @@ public class EnemyController : MonoBehaviour
         player = GameObject.FindWithTag("Player");
     }
 
-    void Update()
-    {
-        if (transform.position.y < -4.7f) 
-        {
-            PlayerController player = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
-            if (player != null)
-            {
-                player.GameOver();
-            }
-        }
-    }
-
     void FixedUpdate()
     {
         // Movimiento horizontal
-        float horizontalMovement = moveRight ? speed : -speed; 
+        float horizontalMovement = moveRight ? speed : -speed;
         transform.Translate(Vector3.right * horizontalMovement * Time.fixedDeltaTime); // Mover horizontalmente
 
         // Si el enemigo alcanza el borde izquierdo o derecho de la pantalla, cambia de dirección y desciende
@@ -91,18 +81,6 @@ public class EnemyController : MonoBehaviour
             }
 
             shootCounter++;
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            PlayerController player = collision.gameObject.GetComponent<PlayerController>();
-            if (player != null)
-            {
-                player.GameOver();
-            }
         }
     }
 }
