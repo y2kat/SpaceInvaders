@@ -11,9 +11,20 @@ public class WaveGenerator : MonoBehaviour
     public float verticalSpacing = 1.5f; // Espaciado vertical entre enemigos
     public Transform waveStartTransform; // Transform para la posición inicial de la oleada
 
+    private float waveMultiplier = 1f;
+
     void Start()
     {
         GenerateWave();
+    }
+
+    void Update()
+    {
+        if (transform.childCount == 0)
+        {
+            waveMultiplier += 0.1f;
+            GenerateWave();
+        }
     }
 
     void GenerateWave()
@@ -31,6 +42,9 @@ public class WaveGenerator : MonoBehaviour
                 // Instanciar el enemigo
                 GameObject enemyInstance = Instantiate(enemyPrefab, position, Quaternion.identity, transform);
                 enemyInstance.GetComponent<EnemyController>().columns = columns;
+                enemyInstance.GetComponent<EnemyController>().waveMultiplier = waveMultiplier;
+                enemyInstance.GetComponent<EnemyController>().speed *= waveMultiplier;
+                enemyInstance.GetComponent<EnemyController>().health *= waveMultiplier;
 
                 if (i == 0)
                 {

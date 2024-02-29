@@ -21,6 +21,7 @@ public class EnemyController : MonoBehaviour
     public int points = 20;
 
     public int columns;
+    public float waveMultiplier;
 
     void Start()
     {
@@ -69,7 +70,7 @@ public class EnemyController : MonoBehaviour
         if (Mathf.Abs(transform.position.x - player.transform.position.x) < 0.5f)
         {
             // Solo dispara si este enemigo es el "elegido" para disparar y se cumple la condición aleatoria
-            if (shootCounter % columns == 0 && Random.value < 0.07f) // Asume que 'columns' es el número de enemigos en una fila
+            if (shootCounter % columns == 0 && Random.value < 0.07f * waveMultiplier) // Asume que 'columns' es el número de enemigos en una fila
             {
                 GameObject bullet = bulletPool.RequestObject();
                 bullet.GetComponent<Bullet>().isEnemyBullet = true;
