@@ -22,7 +22,7 @@ public class WaveGenerator : MonoBehaviour
 
     void Update()
     {
-        if (transform.childCount == 0)
+        if (transform.childCount == 3)
         {
             waveMultiplier += 0.1f;
             GenerateWave();
